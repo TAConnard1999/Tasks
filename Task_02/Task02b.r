@@ -1,0 +1,25 @@
+ ### Hypothesis 1 would be incorrect because his weight is not tracked in the data on a daily basis. Hypothesis 2 is inappropriate because he doesn't nap every day.
+Feeds<−which(beren3$event=="bottle")
+avgMilk<-mean(as.numeric(beren3$value[Feeds]),na.rm=TRUE)
+	### The units are ounces (oz)
+	### You used the value column because that is the column that contains the numeric values that correspond to the amount of milk drank from the bottle. 
+	### The bit where Feeds is in the bracket is important because it refers to the vector containing the values that we want to average.
+avgFeed<−tapply(beren3$value[Feeds],beren3$age[Feeds],mean)
+varFeed<−tapply(beren3$value[Feeds],beren3$age[Feeds],var)
+totalFeed<−tapply(beren3$value[Feeds],beren3$age[Feeds],sum)
+numFeeds<−tapply(beren3$value[Feeds],beren3$age[Feeds],length)
+cor(beren3$value[Feeds],beren3$age[Feeds],use = "complete.obs")
+cor.test(beren3$value[Feeds],beren3$age[Feeds])
+berenCor<-cor.test(beren3$value[Feeds],beren3$age[Feeds])
+berenANOVA<−aov(beren3$value[Feeds ]~beren3$caregiver[Feeds])
+boxplot (beren3$value[Feeds]~˜beren3$caregiver[Feeds],xlab="who gave the bottle",ylab = "amount of milk consumed (oz )")
+par(las=1, mar=c (5 ,5,1,1),mgp=c(2,0.5,0),tck=−0.01)
+plot(as.numeric(names(totalFeed)),totalFeed,type="b",pch=16,xlab="age i n days",ylab="ounces of milk")
+abline(h=mean(totalFeed),lty=2,col='red')
+pdf("r02b−totalMilkByDay.pdf",height=4,width=4)
+par(las=1,mar=c(5,5,1,1),mgp=c(2,0.5,0),tck=−0.01)
+plot(as.numeric(names(totalFeed)),totalFeed,type="b",pch=16,xlab="age in days",ylab="ounces of milk")
+abline(h=mean(totalFeed),lty=2,col='red')
+dev.off( )
+	### The graph is impossible to interpret because there are so many data points due to how the data was collected. The graph is a daily record of bottle feeding in ounces over the course of some 500 days which causes the graph to be unreadable. 
+unique(beren3$event)
